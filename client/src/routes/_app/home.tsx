@@ -8,6 +8,7 @@ export const Route = createFileRoute("/_app/home")({
 const HomeComponent = () => {
     return (
         <div className="flex min-h-screen flex-col">
+            <h1>Hello world!</h1>
             <ShrtnrInput />
         </div>
     )
