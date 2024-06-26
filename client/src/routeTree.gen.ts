@@ -14,12 +14,13 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
+import { Route as IndexImport } from './routes/index'
 import { Route as PostsPostIdImport } from './routes/posts/$postId'
+import { Route as LayoutYellowImport } from './routes/_layout/yellow'
 
 // Create Virtual Routes
 
 const AboutLazyImport = createFileRoute('/about')()
-const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
 
@@ -33,14 +34,19 @@ const LayoutRoute = LayoutImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const IndexLazyRoute = IndexLazyImport.update({
+const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+} as any)
 
 const PostsPostIdRoute = PostsPostIdImport.update({
   path: '/posts/$postId',
   getParentRoute: () => rootRoute,
+} as any)
+
+const LayoutYellowRoute = LayoutYellowImport.update({
+  path: '/yellow',
+  getParentRoute: () => LayoutRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -51,7 +57,7 @@ declare module '@tanstack/react-router' {
       id: '/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexLazyImport
+      preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
     '/_layout': {
@@ -68,6 +74,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutLazyImport
       parentRoute: typeof rootRoute
     }
+    '/_layout/yellow': {
+      id: '/_layout/yellow'
+      path: '/yellow'
+      fullPath: '/yellow'
+      preLoaderRoute: typeof LayoutYellowImport
+      parentRoute: typeof LayoutImport
+    }
     '/posts/$postId': {
       id: '/posts/$postId'
       path: '/posts/$postId'
@@ -81,7 +94,8 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
-  IndexLazyRoute,
+  IndexRoute,
+  LayoutRoute: LayoutRoute.addChildren({ LayoutYellowRoute }),
   AboutLazyRoute,
   PostsPostIdRoute,
 })
@@ -101,13 +115,20 @@ export const routeTree = rootRoute.addChildren({
       ]
     },
     "/": {
-      "filePath": "index.lazy.tsx"
+      "filePath": "index.tsx"
     },
     "/_layout": {
-      "filePath": "_layout.tsx"
+      "filePath": "_layout.tsx",
+      "children": [
+        "/_layout/yellow"
+      ]
     },
     "/about": {
       "filePath": "about.lazy.tsx"
+    },
+    "/_layout/yellow": {
+      "filePath": "_layout/yellow.tsx",
+      "parent": "/_layout"
     },
     "/posts/$postId": {
       "filePath": "posts/$postId.tsx"

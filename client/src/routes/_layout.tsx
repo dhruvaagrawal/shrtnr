@@ -1,10 +1,10 @@
 import { Link, Outlet, createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_layout")({
-	component: () => LayoutComponent,
+	component: LayoutComponent,
 });
 
-export const LayoutComponent = () => {
+function LayoutComponent() {
 	return (
 		<>
 			<div className="p-2 flex gap-2">
@@ -19,4 +19,4 @@ export const LayoutComponent = () => {
 			<Outlet />
 		</>
 	);
-};
+}
