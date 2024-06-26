@@ -7,10 +7,9 @@ export const Route = createFileRoute("/_app")({
 
 function LayoutComponent() {
     return (
-        <>
+        <div className="p-4">
             <Header />
-            <hr />
             <Outlet />
-        </>
+        </div>
     )
 }
