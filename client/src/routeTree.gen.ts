@@ -15,7 +15,6 @@ import { createFileRoute } from "@tanstack/react-router"
 import { Route as rootRoute } from "./routes/__root"
 import { Route as AppImport } from "./routes/_app"
 import { Route as IndexImport } from "./routes/index"
-import { Route as PostsPostIdImport } from "./routes/posts/$postId"
 import { Route as AppHomeImport } from "./routes/_app/home"
 
 // Create Virtual Routes
@@ -36,11 +35,6 @@ const AppRoute = AppImport.update({
 
 const IndexRoute = IndexImport.update({
     path: "/",
-    getParentRoute: () => rootRoute,
-} as any)
-
-const PostsPostIdRoute = PostsPostIdImport.update({
-    path: "/posts/$postId",
     getParentRoute: () => rootRoute,
 } as any)
 
@@ -81,13 +75,6 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof AppHomeImport
             parentRoute: typeof AppImport
         }
-        "/posts/$postId": {
-            id: "/posts/$postId"
-            path: "/posts/$postId"
-            fullPath: "/posts/$postId"
-            preLoaderRoute: typeof PostsPostIdImport
-            parentRoute: typeof rootRoute
-        }
     }
 }
 
@@ -97,7 +84,6 @@ export const routeTree = rootRoute.addChildren({
     IndexRoute,
     AppRoute: AppRoute.addChildren({ AppHomeRoute }),
     AboutLazyRoute,
-    PostsPostIdRoute,
 })
 
 /* prettier-ignore-end */
@@ -110,8 +96,7 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/",
         "/_app",
-        "/about",
-        "/posts/$postId"
+        "/about"
       ]
     },
     "/": {
@@ -129,9 +114,6 @@ export const routeTree = rootRoute.addChildren({
     "/_app/home": {
       "filePath": "_app/home.tsx",
       "parent": "/_app"
-    },
-    "/posts/$postId": {
-      "filePath": "posts/$postId.tsx"
     }
   }
 }
