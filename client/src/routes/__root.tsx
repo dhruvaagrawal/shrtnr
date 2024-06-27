@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/sonner"
 import { ThemeProvider } from "@/components/utils/theme-provider"
 import { createRootRoute, Outlet } from "@tanstack/react-router"
 
@@ -7,6 +8,7 @@ export const Route = createRootRoute({
             <ThemeProvider defaultTheme="system" storageKey="shrtnr-ui-theme">
                 <Outlet />
             </ThemeProvider>
+            <Toaster />
         </div>
     ),
 })

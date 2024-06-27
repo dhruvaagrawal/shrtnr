@@ -7,7 +7,7 @@ export const Route = createFileRoute("/_app/home")({
 
 function HomeComponent() {
     return (
-        <div className="my-auto flex max-h-screen">
+        <div className="my-auto flex max-h-screen justify-center">
             <ShrtnrInput />
         </div>
     )
