@@ -6,10 +6,8 @@ import { z } from "zod"
 
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
 import { toast } from "sonner"
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons"
-import { CommandInput } from "../ui/command"
+import { CommandInput } from "@/components/ui/command"
 
 const FormSchema = z.object({
     username: z.string().min(2, {

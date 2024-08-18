@@ -1,7 +1,7 @@
-import { Link } from "@tanstack/react-router"
-import { FC, HTMLAttributes } from "react"
 import ThemeToggle from "@/components/utils/theme-toggle"
 import { cn } from "@/lib/utils"
+import { Link } from "@tanstack/react-router"
+import { FC, HTMLAttributes } from "react"
 
 interface HeaderProps extends HTMLAttributes<HTMLDivElement> {}
 
